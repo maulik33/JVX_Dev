@@ -1,0 +1,955 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"  xmlns="http://jaspervx.kaptest.com/xsd/Jvx/Core/ProductModel" targetNamespace="http://jaspervx.kaptest.com/xsd/Jvx/Core/ProductModel" elementFormDefault="qualified" id="JvxProductModel">
+
+  <xs:complexType name="Product">
+    <xs:sequence>
+      <xs:element name="productSyllabi" type="ProductSyllabus" minOccurs="1"/>
+      <xs:element name="properties" type="Property" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="active" type="xs:boolean" default="true"/>
+    <xs:attribute name="versionId" type="xs:int" use="required"/>
+    <xs:attribute name="kbsProductId" type="xs:int" use="required"/>
+    <xs:attribute name="kbsProductCode" type="xs:string" use="required"/>
+    <xs:attribute name="hsgEligible" type="xs:boolean" default="false"/>
+  </xs:complexType>
+
+  <xs:complexType name="ProductSyllabus">
+    <xs:sequence>
+      <xs:element name="syllabus" type="Syllabus" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="kbsProdConfigId" type="xs:string"/>
+    <xs:attribute name="classStartDate" type="xs:dateTime" use="optional"/>
+    <xs:attribute name="homePage" type="xs:string"/>
+    <xs:attribute name="isDefault" type="xs:boolean" default="false"/>
+  </xs:complexType>
+
+  <xs:complexType name="Property">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="value" type="xs:string" use="required"/>
+  </xs:complexType>
+
+
+
+  <xs:complexType name="Syllabus">
+    <xs:sequence>
+      <xs:element name="syllabusComponentGroupRefs" type="SyllabusComponentGroupRef" nillable="true" minOccurs="0"/>
+      <xs:element name="componentRefs" type="ComponentRef" nillable="true" minOccurs="0"/>
+      <xs:element name="resources" type="Resource" nillable="true" minOccurs="0"/>
+      <xs:element name="courseProvider" type="CourseProvider" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="productCategoryDimensionRefs" type="ProductCategoryDimensionRef" nillable="true" minOccurs="0"/>
+      <xs:element name="properties" type="Property" nillable="true" minOccurs="0"/>
+      <xs:element name="aliasedContentItems" type="AliasedContentItem" nillable="true" minOccurs="0"/>
+      <xs:element name="aliasedStyleSheets" type="AliasedStyleSheet" nillable="true" minOccurs="0"/>
+      <xs:element name="defaultStyleSheets" type="DefaultStyleSheet" nillable="true" minOccurs="0"/>
+      <xs:element name="pages" type="Page" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="active" type="xs:boolean" default="true"/>
+    <xs:attribute name="versionId" type="xs:int" use="required"/>
+    <xs:attribute name="shortTitle" type="xs:string" use="required"/>
+    <xs:attribute name="homePage" type="xs:string"/>
+    <xs:attribute name="navigationMode" type="NavigationMode" default="NonLinear"/>
+  </xs:complexType>
+
+  <xs:simpleType name="NavigationMode">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NonLinear"/>
+      <xs:enumeration value="Linear"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="SyllabusComponentGroupRef">
+    <xs:sequence>
+      <xs:element name="syllabusComponentGroup" type="SyllabusComponentGroup" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="order" type="xs:int" use="required"/>
+    <xs:attribute name="show" type="xs:boolean" default="true"/>
+    <xs:attribute name="kbsSessionTopicId" type="xs:string"/>
+    <xs:attribute name="isDynamic" type="xs:boolean" default="false"/>
+    <xs:attribute name="homePage" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="ComponentRef">
+    <xs:sequence>
+      <xs:element name="component" type="Component" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="order" type="xs:int" use="required"/>
+    <xs:attribute name="show" type="xs:boolean" default="true"/>
+    <xs:attribute name="type" type="ComponentType" default="None"/>
+    <xs:attribute name="kbsSessionTopicId" type="xs:string"/>
+    <xs:attribute name="isDynamic" type="xs:boolean" default="false"/>
+    <xs:attribute name="homePage" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:simpleType name="ComponentType">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="Preview"/>
+      <xs:enumeration value="Class"/>
+      <xs:enumeration value="Review"/>
+      <xs:enumeration value="Recommended"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="Resource">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="startPage" type="xs:string" use="optional"/>
+    <xs:attribute name="syllabusPath" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="CourseProvider">
+    <xs:attribute name="providerName" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="ProductCategoryDimensionRef">
+    <xs:sequence>
+      <xs:element name="categoryDimension" type="ProductCategoryDimension" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="shortTitle" type="xs:string" use="required"/>
+    <xs:attribute name="show" type="xs:boolean" default="true"/>
+  </xs:complexType>
+
+  <xs:complexType name="AliasedContentItem">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="fileName" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="AliasedStyleSheet">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="styleSheetName" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="DefaultStyleSheet">
+    <xs:attribute name="documentTypeName" type="xs:string" use="required"/>
+    <xs:attribute name="styleSheetName" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="Page">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="styleSheetName" type="xs:string" use="required"/>
+    <xs:attribute name="fileName" type="xs:string" use="required"/>
+  </xs:complexType>
+
+
+
+  <xs:complexType name="SyllabusComponentGroup">
+    <xs:sequence>
+      <xs:element name="syllabusComponentGroupRefs" type="SyllabusComponentGroupRef" nillable="true" minOccurs="0"/>
+      <xs:element name="componentRefs" type="ComponentRef" nillable="true" minOccurs="0"/>
+      <xs:element name="courseProvider" type="CourseProvider" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="properties" type="Property" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="active" type="xs:boolean" default="true"/>
+    <xs:attribute name="versionId" type="xs:int" use="required"/>
+    <xs:attribute name="shortTitle" type="xs:string" use="required"/>
+    <xs:attribute name="homePage" type="xs:string" use="optional"/>
+    <xs:attribute name="navigationMode" type="NavigationMode" default="NonLinear"/>
+  </xs:complexType>
+
+
+
+  <xs:complexType name="Component">
+    <xs:sequence>
+      <xs:element name="assignments" type="Assignment" nillable="true" minOccurs="0"/>
+      <xs:element name="sequenceTemplates" type="ComponentSequenceTemplate" nillable="true" minOccurs="0"/>
+      <xs:element name="contentPools" type="ComponentContentPool" nillable="true" minOccurs="0"/>
+      <xs:element name="testlets" type="ComponentTestlet" nillable="true" minOccurs="0"/>
+      <xs:element name="courseProvider" type="CourseProvider" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="properties" type="Property" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="active" type="xs:boolean" default="true"/>
+    <xs:attribute name="versionId" type="xs:int" use="required"/>
+    <xs:attribute name="shortTitle" type="xs:string" use="required"/>
+    <xs:attribute name="homePage" type="xs:string" use="optional"/>
+    <xs:attribute name="navigationMode" type="NavigationMode" default="NonLinear"/>
+    <xs:attribute name="purpose" type="ComponentPurpose" use="required"/>
+    <xs:attribute name="sequenceInterface" type="xs:string" use="optional"/>
+    <xs:attribute name="modeBaseSequenceInterface" type="xs:boolean" default="false"/>
+    <xs:attribute name="sequenceAnalysisTemplate" type="xs:string" use="optional"/>
+    <xs:attribute name="sequenceItemListTemplate" type="xs:string" use="optional"/>
+    <xs:attribute name="sequenceGuidanceTemplate" type="xs:string" use="optional"/>
+    <xs:attribute name="sequencePrintoutTemplate" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:simpleType name="ComponentPurpose">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="Assessment"/>
+      <xs:enumeration value="QBank"/>
+      <xs:enumeration value="Instruction"/>
+      <xs:enumeration value="Video"/>
+      <xs:enumeration value="Game"/>
+      <xs:enumeration value="Mixed"/>
+      <xs:enumeration value="Offline"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="Assignment">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="shortTitle" type="xs:string" use="required"/>
+    <xs:attribute name="order" type="xs:int" use="required"/>
+    <xs:attribute name="type" type="AssignmentType" use="required"/>
+    <xs:attribute name="isOptional" type="xs:boolean" default="false"/>
+  </xs:complexType>
+
+  <xs:simpleType name="AssignmentType">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Info"/>
+      <xs:enumeration value="Online"/>
+      <xs:enumeration value="Class"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="OnlineAssignment">
+    <xs:complexContent>
+      <xs:extension base="Assignment">
+        <xs:sequence>
+          <xs:element name="sequenceTemplates" type="ComponentSequenceTemplate" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ClassAssignment">
+    <xs:complexContent>
+      <xs:extension base="Assignment">
+        <xs:sequence>
+          <xs:element name="sequenceTemplates" type="ComponentSequenceTemplate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="infoAssignment" type="InfoAssignment" nillable="true" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="InfoAssignment">
+    <xs:complexContent>
+      <xs:extension base="Assignment">
+        <xs:sequence>
+          <xs:element name="infoUris" type="InfoUri" minOccurs="1" maxOccurs="unbounded"></xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="InfoUri">
+    <xs:attribute name="uri" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="ComponentSequenceTemplate">
+    <xs:sequence>
+      <xs:element name="sequenceTemplate" type="SequenceTemplate" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="sequenceRule" type="SequenceRule" nillable="true" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="scoringInfo" type="ScoringInfo" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="sequenceTimingInfo" type="TimingInfo" nillable="true" minOccurs="0"/>
+      <xs:element name="resultSubscribers" type="SequenceResultSubscriber" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="active" type="xs:boolean" default="true"/>
+    <xs:attribute name="versionId" type="xs:int" use="required"/>
+    <xs:attribute name="shortTitle" type="xs:string" use="required"/>
+    <xs:attribute name="order" type="xs:int" use="required"/>
+    <xs:attribute name="sequenceMode" type="SequenceMode" use="optional" default="Test"/>
+    <xs:attribute name="timingMode" type="TimingMode" use="required"/>
+    <xs:attribute name="numberingMode" type="SequenceNumberingMode" default="Section"/>
+    <xs:attribute name="maxUses" type="xs:int" default="1"/>
+    <xs:attribute name="randomize" type="xs:boolean" default="false"/>
+    <xs:attribute name="hidden" type="xs:boolean" default="false"/>
+    <xs:attribute name="startPage" type="xs:string" use="optional"/>
+    <xs:attribute name="endPage" type="xs:string" use="optional"/>
+    <xs:attribute name="purpose" type="SequencePurpose" use="required"/>
+    <xs:attribute name="sequenceInterface" type="xs:string" use="optional"/>
+    <xs:attribute name="modeBaseSequenceInterface" type="xs:boolean" default="false"/>
+    <xs:attribute name="sequenceAnalysisTemplate" type="xs:string" use="optional"/>
+    <xs:attribute name="sequenceItemListTemplate" type="xs:string" use="optional"/>
+    <xs:attribute name="sequenceGuidanceTemplate" type="xs:string" use="optional"/>
+    <xs:attribute name="sequencePrintoutTemplate" type="xs:string" use="optional"/>
+    <xs:attribute name="contentItemSetDisplayType" type="ContentItemSetDisplayType" default="Standard"/>
+  </xs:complexType>
+
+  <xs:simpleType name="SequenceMode" id="SequenceMode_1">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Test"/>
+      <xs:enumeration value="Tutor"/>
+      <xs:enumeration value="Review"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TimingMode" id="TimingMode_1">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NotTimed"/>
+      <xs:enumeration value="Timed"/>
+      <xs:enumeration value="Inherited"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SequenceNumberingMode" id="SequenceNumberingMode_1">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Section"/>
+      <xs:enumeration value="Test"/>
+      <xs:enumeration value="SectionGroup"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SequencePurpose">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="Diagnostic"/>
+      <xs:enumeration value="PreTest"/>
+      <xs:enumeration value="PostTest"/>
+      <xs:enumeration value="Simulation"/>
+      <xs:enumeration value="Quiz"/>
+      <xs:enumeration value="Qbank"/>
+      <xs:enumeration value="Instruction"/>
+      <xs:enumeration value="Workshop"/>
+      <xs:enumeration value="Video"/>
+      <xs:enumeration value="Game"/>
+      <xs:enumeration value="Mixed"/>
+      <xs:enumeration value="Offline"/>
+      <xs:enumeration value="QRater"/>
+      <xs:enumeration value="External"/>
+      <xs:enumeration value="ExternalUpt"/>
+      <xs:enumeration value="ScienceAssessment"/>
+      <xs:enumeration value="SectionTest"/>
+      <xs:enumeration value="FullLengthPractice"/>
+      <xs:enumeration value="TopicalTest"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ContentItemSetDisplayType" id="ContentItemSetDisplayType_1">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Standard"/>
+      <xs:enumeration value="All"/>
+      <xs:enumeration value="Sequential"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="ScoringInfo">
+    <xs:attribute name="assessmentName" type="xs:string" use="required"/>
+    <xs:attribute name="scoreLookupDataFileName" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="TimingInfo">
+    <xs:attribute name="nodeType" type="NodeType" use="required"/>
+    <xs:attribute name="nodeName" type="xs:string" use="optional"/>
+    <xs:attribute name="timingMode" type="TimingMode" use="required"/>
+    <xs:attribute name="mSecGranted" type="xs:int"/>
+  </xs:complexType>
+
+  <xs:simpleType name="NodeType">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Sequence"/>
+      <xs:enumeration value="SectionGroup"/>
+      <xs:enumeration value="Section"/>
+      <xs:enumeration value="Content"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="InteractionType" id="InteractionType">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="SingleAnswerMultipleChoice"/>
+      <xs:enumeration value="MultipleAnswerMultipleChoice"/>
+      <xs:enumeration value="EssayQuestion"/>
+      <xs:enumeration value="GridIn"/>
+      <xs:enumeration value="HotSpot"/>
+      <xs:enumeration value="Annotation"/>
+      <xs:enumeration value="Flag"/>
+      <xs:enumeration value="Highlighting"/>
+      <xs:enumeration value="Mark"/>
+      <xs:enumeration value="StrikeThrough"/>
+      <xs:enumeration value="Guess"/>
+      <xs:enumeration value="SelfDiagnosis"/>
+      <xs:enumeration value="ExplanationViewed"/>
+      <xs:enumeration value="AnswerBlank"/>
+      <xs:enumeration value="NumberInteraction"/>
+      <xs:enumeration value="NumericBlank"/>
+      <xs:enumeration value="OrderMatch"/>
+      <xs:enumeration value="PhoneNumber"/>
+      <xs:enumeration value="PickListInteraction"/>
+      <xs:enumeration value="ScrambledParagraph"/>
+      <xs:enumeration value="EssayScore"/>
+      <xs:enumeration value="HighlightBlank"/>
+      <xs:enumeration value="Exercise"/>
+      <xs:enumeration value="CompletionTracker"/>
+      <xs:enumeration value="DateTimeInteraction"/>
+      <xs:enumeration value="Rating" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="SequenceResultSubscriber">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="ComponentContentPool">
+    <xs:sequence>
+      <xs:element name="contentPool" type="ContentPool" minOccurs="1" maxOccurs="1"></xs:element>
+    </xs:sequence>
+    <xs:attribute name="priority" type="xs:int"/>
+    <xs:attribute name="selectable" type="xs:boolean" default="true"/>
+  </xs:complexType>
+
+  <xs:complexType name="ComponentTestlet">
+    <xs:sequence>
+      <xs:element name="testlet" type="Testlet" minOccurs="1" maxOccurs="1"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SequenceTemplate">
+    <xs:sequence>
+      <xs:element name="sequenceTemplateItems" type="SequenceTemplateItem" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="categories" type="ItemCategory" nillable="true" minOccurs="0"/>
+      <xs:element name="properties" type="Property" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="active" type="xs:boolean" default="true"/>
+    <xs:attribute name="versionId" type="xs:int" use="required"/>
+    <xs:attribute name="type" type="SequenceTemplateType" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="SequenceTemplateType" id="SequenceTemplateType_1">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Test"/>
+      <xs:enumeration value="Lesson"/>
+      <xs:enumeration value="Mixed"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="SequenceTemplateItem">
+    <xs:attribute name="nodeType" type="SequenceTemplateItemNodeType" use="required"/>
+    <xs:attribute name="order" type="xs:int" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="SequenceTemplateItemNodeType">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LinearSection"/>
+      <xs:enumeration value="QBankSection"/>
+      <xs:enumeration value="DynamicSection"/>
+      <xs:enumeration value="AdaptiveSection"/>
+      <xs:enumeration value="SectionGroup"/>
+      <xs:enumeration value="ContentItem"/>
+      <xs:enumeration value="ContentItemSet"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="SequenceTemplateContentItemBase">
+    <xs:complexContent>
+      <xs:extension base="SequenceTemplateItem">
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SequenceTemplateContentItem">
+    <xs:complexContent>
+      <xs:extension base="SequenceTemplateContentItemBase">
+        <xs:sequence>
+          <xs:element name="contentItem" type="ContentItem" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="styleSheetName" type="xs:string" use="optional"/>
+        <xs:attribute name="scorable" type="xs:boolean" use="required"/>
+        <xs:attribute name="path" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SequenceTemplateContentItemSet">
+    <xs:complexContent>
+      <xs:extension base="SequenceTemplateContentItemBase">
+        <xs:sequence>
+          <xs:element name="contentItemSet" type="ContentItemSet" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="styleSheetName" type="xs:string" use="optional"/>
+        <xs:attribute name="scorable" type="xs:boolean" use="required"/>
+        <xs:attribute name="path" type="xs:string" use="required"/>
+        <xs:attribute name="displayType" type="ContentItemSetDisplayType" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SequenceTemplateSectionItem">
+    <xs:complexContent>
+      <xs:extension base="SequenceTemplateItem">
+        <xs:sequence>
+          <xs:element name="sequenceSection" type="SequenceSection" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="path" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SequenceSection">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="scored" type="xs:boolean" default="true"/>
+  </xs:complexType>
+
+  <xs:complexType name="QBankSection">
+    <xs:complexContent>
+      <xs:extension base="SequenceSection">
+        <xs:sequence>
+          <xs:element name="contentSource" type="SequenceContentSource" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SequenceContentSource">
+    <xs:sequence>
+      <xs:element name="componentContentPools" type="componentContentPoolRef" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="componentContentPoolRef">
+    <xs:attribute name="componentContentPoolName" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="SequenceContentFilter">
+    <xs:sequence>
+      <xs:element name="categoryDimensionFilters" type="CategoryDimensionFilter" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CategoryDimensionFilter">
+    <xs:attribute name="categoryDimensionName" type="xs:string" use="required"/>
+    <xs:attribute name="categoryName" type="xs:string" use="required"/>
+    <xs:attribute name="inclusive" type="xs:boolean" default="true"/>
+  </xs:complexType>
+
+  <xs:complexType name="LinearSection">
+    <xs:complexContent>
+      <xs:extension base="SequenceSection">
+        <xs:sequence>
+          <xs:element name="sequenceSectionItems" type="SequenceTemplateContentItemBase" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="randomize" type="xs:boolean" default="false"/>
+        <xs:attribute name="totalCount" type="xs:int" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="DynamicSection">
+    <xs:complexContent>
+      <xs:extension base="SequenceSection">
+        <xs:sequence>
+          <xs:element name="contentSource" type="SequenceContentSource" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="contentFilter" type="SequenceContentFilter" nillable="true" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="totalCount" type="xs:int" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AdaptiveSection">
+    <xs:complexContent>
+      <xs:extension base="SequenceSection">
+        <xs:sequence>
+          <xs:element name="testlets" type="TestletRef" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="totalCount" type="xs:int" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="TestletRef">
+    <xs:attribute name="testletType" type="TestletType" use="required"/>
+    <xs:attribute name="order" type="xs:int" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="TestletType">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="Operational"/>
+      <xs:enumeration value="Experimental"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="SectionGroup">
+    <xs:complexContent>
+      <xs:extension base="SequenceSection">
+        <xs:sequence>
+          <xs:element name="sequenceTemplateItems" type="SequenceTemplateItem" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ItemCategory">
+    <xs:attribute name="categoryGuid" type="xs:string" use="required"/>
+  </xs:complexType>
+
+
+
+  <xs:complexType name="ContentPool">
+    <xs:sequence>
+      <xs:element name="contentItems" type="ContentPoolItemBase" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="active" type="xs:boolean" default="true"/>
+    <xs:attribute name="versionId" type="xs:int" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="ContentPoolItemBase">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="ContentPoolItem">
+    <xs:complexContent>
+      <xs:extension base="ContentPoolItemBase">
+        <xs:sequence>
+          <xs:element name="contentItem" type="ContentItem" minOccurs="1" maxOccurs="1"/>          
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ContentPoolItemSet">
+    <xs:complexContent>
+      <xs:extension base="ContentPoolItemBase">
+        <xs:sequence>
+          <xs:element name="contentItemSet" type="ContentItemSet" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="contentItems" type="ContentPoolItem" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="childCount" type="xs:int" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Testlet">
+    <xs:sequence>
+      <xs:element name="contentItems" type="ContentItem" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="active" type="xs:boolean" default="true"/>
+    <xs:attribute name="versionId" type="xs:int" use="required"/>
+    <xs:attribute name="scored" type="xs:boolean" default="true"/>
+    <xs:attribute name="totalCount" type="xs:int" use="required"/>
+    <xs:attribute name="randomize" type="xs:boolean" default="false"/>
+    <xs:attribute name="type" type="TestletType" use="required"/>
+    <xs:attribute name="thetaLevelMin" type="xs:decimal" use="required"/>
+    <xs:attribute name="thetaLevelMax" type="xs:decimal" use="required"/>
+  </xs:complexType>
+
+
+
+  <xs:complexType name="ProductCategoryDimension">
+    <xs:sequence>
+      <xs:element name="categories" type="ProductCategory" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="active" type="xs:boolean" default="true"/>
+    <xs:attribute name="versionId" type="xs:int" use="required"/>
+    <xs:attribute name="shortTitle" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="ProductCategory">
+    <xs:sequence>
+      <xs:element name="categoryMappings" type="ProductCategoryMapping" nillable="true" minOccurs="0"/>
+      <xs:element name="allCategoryMappings" type="ProductCategoryMapping" nillable="true" minOccurs="0"/>
+      <xs:element name="categories" type="ProductCategory" nillable="true" minOccurs="0"/>
+      <xs:element name="precedentPaths" type="Precedence" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="shortTitle" type="xs:string" use="required"/>
+    <xs:attribute name="nodePath" type="xs:string" use="required"/>
+    <xs:attribute name="secondaryTitle" type="xs:string" use="optional"/>
+    <xs:attribute name="opportunityValue" type="xs:decimal"/>
+    <xs:attribute name="order" type="xs:int"/>
+    <xs:attribute name="depth" type="xs:int"/>
+  </xs:complexType>
+
+  <xs:complexType name="ProductCategoryMapping">
+    <xs:attribute name="categoryGuid" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="Precedence">
+    <xs:attribute name="precedentPath" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="ContentItemSet">
+    <xs:sequence>
+      <xs:element name="contentItems" type="ContentItemSetMember" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="categories" type="ItemCategory" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
+    <xs:attribute name="active" type="xs:boolean" default="true"/>
+    <xs:attribute name="versionId" type="xs:int" use="required"/>
+    <xs:attribute name="type" type="ContentItemSetType" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="ContentItemSetType" id="ContentItemSetType_1">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NonFractionable"/>
+      <xs:enumeration value="Fractionable"/>
+      <xs:enumeration value="Sequential"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="ContentItemSetMember">
+    <xs:sequence>
+      <xs:element name="contentItem" type="ContentItem" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="order" type="xs:int" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="ContentItem">
+    <xs:sequence>
+      <xs:element name="tags" type="Tag" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="categories" type="Category" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="alignments" type="Alignment" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="mediaAssets" type="MediaAsset" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="requires" type="ContentItem" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="isRequiredBy" type="ContentItem" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="optional"/>
+    <xs:attribute name="versionId" type="xs:int" use="required"/>
+    <xs:attribute name="schema" type ="SchemaType" use="optional"/>
+    <xs:attribute name="documentTypeName" type="DocumentType" use="required"/>
+    <xs:attribute name="interactionType" type="InteractionType" use="optional"/>
+    <xs:attribute name="interactionTypeResponse" type="xs:string" use="optional"/>
+    <xs:attribute name="experimental" type="xs:boolean"/>
+    <xs:attribute name="duration" type ="xs:string" use ="optional"/>
+    <xs:attribute name="location" type ="xs:string"/>
+  </xs:complexType>
+
+  <xs:simpleType name="SchemaType">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="CatalystQti"/>
+      <xs:enumeration value="Dictera"/>
+      <xs:enumeration value="JasperFlipItem"/>
+      <xs:enumeration value="JasperInstructionItem"/>
+      <xs:enumeration value="MediaItem"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DocumentType">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="Question"/>
+      <xs:enumeration value="TutorialItem"/>
+      <xs:enumeration value="Document"/>
+      <xs:enumeration value="Page"/>
+      <xs:enumeration value="LessonPage"/>
+      <xs:enumeration value="Concepticon"/>
+      <xs:enumeration value="Video"/>
+      <xs:enumeration value="Audio"/>
+      <xs:enumeration value="Animation"/>
+      <xs:enumeration value="Image"/>
+      <xs:enumeration value="ClinicalCorrelate"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- general.Keyword -->
+  <xs:complexType name="Tag">
+    <xs:attribute name="name" type="xs:string"/>
+  </xs:complexType>
+
+  <!--Classification-->
+  <xs:complexType name="Category">
+    <!-- xs:attribute name="name" type="xs:string" use="required"/-->
+    <!-- Will be in partial class - classification.description -->
+    <xs:attribute name="guId" type="xs:string" use="required"/>
+    <!-- classification.taxonpath.taxon.id -->
+    <xs:attribute name="path" type="xs:string" use="required"/>
+    <!-- classification.taxonpath.taxon.entry.string -->
+  </xs:complexType>
+
+  <!--Classification-->
+  <xs:complexType name="Alignment">
+    <!-- xs:attribute name="name" type="xs:string" use="required"/ -->
+    <!-- Will be in partial class - classification.description -->
+    <xs:attribute name="guId" type="xs:string" use="required"/>
+    <!-- classification.taxonpath.taxon.id -->
+    <xs:attribute name="path" type="xs:string" use="required"/>
+    <!-- classification.taxonpath.taxon.entry.string -->
+    <xs:attribute name="alignmentType" type="AlignmentType" use="required"/>
+    <!-- classification.alignmentType-->
+    <xs:attribute name="target" type="xs:string" use="required"/>
+    <!-- classification.target -->
+  </xs:complexType>
+
+  <xs:simpleType name ="AlignmentType">
+    <!-- type = string -->
+    <xs:restriction base ="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="Skills"/>
+      <xs:enumeration value="Strategies"/>
+      <xs:enumeration value="Attributes"/>
+      <xs:enumeration value="SkillChoose"/>
+      <xs:enumeration value="SkillEliminate"/>
+      <xs:enumeration value="StrategyEliminate"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!--Relation-->
+  <xs:complexType name="MediaAsset">
+    <xs:attribute name="name" type="xs:string"/>
+    <!-- relation.resource.identifier.catalog -->
+    <xs:attribute name="location" type="xs:string"/>
+    <!-- relation.resource.identifier.entry -->
+    <xs:attribute name="type" type="xs:string"/>
+    <!-- relation.resource.description.string -->
+    <xs:attribute name="mediaBase" type="xs:string"/>
+    <!-- relation.mediaBase-->
+  </xs:complexType>
+
+
+
+  <xs:complexType name="SequenceRule">
+    <xs:sequence>
+      <xs:element name="rules" type="Rule" minOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Rule">
+    <xs:sequence>
+      <xs:element name="condition" type="Condition" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="target" type="Target" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="type" type="RuleType" default="Post" />
+  </xs:complexType>
+
+  <xs:simpleType name="RuleType">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Pre"/>
+      <xs:enumeration value="Post"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="Condition">
+    <xs:attribute name="itemName" type="xs:string" />
+    <xs:attribute name="itemType" type="NodeType" />
+    <xs:attribute name="type" type="ConditionType" />
+  </xs:complexType>
+
+  <xs:simpleType name="ConditionType">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IsCorrectCondition"/>
+      <xs:enumeration value="AnswerChoiceCondition"/>
+      <xs:enumeration value="ScoreCondition"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="IsCorrectCondition">
+    <xs:complexContent>
+      <xs:extension base="Condition">
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AnswerChoiceCondition">
+    <xs:complexContent>
+      <xs:extension base="Condition">
+        <xs:sequence>
+          <xs:element name="choiceConditions" type="ChoiceCondition" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ChoiceCondition">
+    <xs:attribute name="choiceIndex" type="xs:int" use="required"/>
+    <xs:attribute name="oprtr" type="BinaryOperator" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="BinaryOperator">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EQ"/>
+      <xs:enumeration value="NE"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RelationalOperator">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EQ"/>
+      <xs:enumeration value="NE"/>
+      <xs:enumeration value="GT"/>
+      <xs:enumeration value="LT"/>
+      <xs:enumeration value="GE"/>
+      <xs:enumeration value="LE"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="Target">
+    <xs:attribute name="type" type="TargetType" />
+  </xs:complexType>
+
+  <xs:simpleType name="TargetType">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Navigate"/>
+      <xs:enumeration value="Fixed"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="NavigateTarget">
+    <xs:complexContent>
+      <xs:extension base="Target">
+        <xs:attribute name="itemName" type="xs:string" />
+        <xs:attribute name="itemType" type="NodeType" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FixedTarget">
+    <xs:complexContent>
+      <xs:extension base="Target">
+        <xs:attribute name="target" type="FixedTargetType" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="FixedTargetType">
+    <!-- type = string -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ExitSection"/>
+      <xs:enumeration value="ExitSectionGroup"/>
+      <xs:enumeration value="ExitSequence"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
