@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JvxPlatform", "JvxPlatform\JvxPlatform.csproj", "{A5B62EBB-870D-45CC-AA59-0FA92A52ADDF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5B62EBB-870D-45CC-AA59-0FA92A52ADDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5B62EBB-870D-45CC-AA59-0FA92A52ADDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5B62EBB-870D-45CC-AA59-0FA92A52ADDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5B62EBB-870D-45CC-AA59-0FA92A52ADDF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
