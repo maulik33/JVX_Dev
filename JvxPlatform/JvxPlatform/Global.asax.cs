@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -23,7 +24,7 @@ namespace JvxPlatform
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            GlobalConfiguration.Configuration.Formatters.Add(new FormUrlEncodedMediaTypeFormatter());
+            GlobalConfiguration.Configuration.Formatters.Add(new JQueryMvcFormUrlEncodedFormatter());
         }
     }
 }
